@@ -62,7 +62,7 @@ export const constructUserFromId = (
 		return new Promise(async (res, rej) => {
 			try {
 				const response = await fetch(
-					`${process.env.MAIN_FETCH_URL}/api/users/get/${identification}`,
+					`${process.env.API_FETCH_URL}/api/users/get/${identification}`,
 					{
 						method: "GET",
 						headers: {

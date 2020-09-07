@@ -12,7 +12,7 @@ export const apiService = {
 
 		try {
 			const response = await fetch(
-				`${process.env.MAIN_FETCH_URL}/api/${input}`,
+				`${process.env.API_FETCH_URL}/api/${input}`,
 				initWithXTokenHeader
 			);
 
