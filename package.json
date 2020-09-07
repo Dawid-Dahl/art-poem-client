@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "node ./server.js",
 		"dev": "parcel ./src/index.html",
-		"build": "tsc && rm server.ts && rm -r ./src && parcel build src/index.html --no-source-maps",
+		"build": "tsc && rm server.ts && parcel build src/index.html --no-source-maps && rm -r ./src",
 		"test": "jest"
 	},
 	"author": "Dawid Dahl",
