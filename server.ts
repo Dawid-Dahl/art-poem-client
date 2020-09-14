@@ -1,4 +1,5 @@
 import "dotenv/config";
+import path from "path";
 import express from "express";
 import errorhandler from "errorhandler";
 import morgan from "morgan";
@@ -13,6 +14,10 @@ app.use(cors());
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static("dist"));
+
+	app.get("/*", (req, res) => {
+		res.sendFile(path.join(__dirname, "dist", "index.html"));
+	});
 }
 
 app.use(errorhandler());
