@@ -79,6 +79,8 @@ const Wrapper = styled.div`
 
 const ProfilePicWrapper = styled.div`
 	margin: 1.5em 0 0 0;
+	box-shadow: var(--box-shadow);
+	border-radius: 50%;
 `;
 
 const Greeting = styled.h1`

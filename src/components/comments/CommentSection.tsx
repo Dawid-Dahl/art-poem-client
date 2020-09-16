@@ -18,13 +18,14 @@ const CommentSection = () => {
 export default CommentSection;
 
 const Wrapper = styled.div`
-	display: flex;
+	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
 	background-color: white;
 	box-shadow: var(--box-shadow);
 	border-radius: 5px;
+	margin-bottom: 2.5em;
 
 	.comments-h1 {
 		margin: 1em 0 0.5em 0;

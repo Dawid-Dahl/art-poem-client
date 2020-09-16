@@ -82,6 +82,7 @@ export default ProfilePic;
 const Wrapper = styled.div<Omit<Props, "user">>`
 	border-radius: 50%;
 	overflow: hidden;
+	-webkit-mask-image: -webkit-radial-gradient(white, black);
 	height: ${props => `${props.size}em`};
 	width: ${props => `${props.size}em`};
 	margin: 0;
