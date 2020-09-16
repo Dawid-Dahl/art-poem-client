@@ -25,6 +25,7 @@ const Wrapper = styled.div`
 	background-color: white;
 	box-shadow: var(--box-shadow);
 	border-radius: 5px;
+	width: 100%;
 	margin-bottom: 2.5em;
 
 	.comments-h1 {
