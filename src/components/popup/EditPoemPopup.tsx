@@ -118,7 +118,7 @@ const EditPoemPopup: React.FC<Props> = () => {
 						type="button"
 						onClickHandler={handleDeleteClick}
 					/>
-					<Button title="Edit" kind="primary" type="submit" />
+					<Button title="Save" kind="primary" type="submit" />
 				</ButtonRow>
 			</StyledForm>
 		</>

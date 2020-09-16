@@ -38,6 +38,7 @@ const Wrapper = styled.div`
 	box-shadow: var(--box-shadow);
 	border-radius: 5px;
 	height: fit-content;
+	margin-bottom: 1em;
 
 	span {
 		position: absolute;
@@ -54,6 +55,7 @@ const Wrapper = styled.div`
 
 	p {
 		padding: 50px;
+		margin: 0;
 		text-align: center;
 		font-size: 1.5em;
 		white-space: break-spaces;
