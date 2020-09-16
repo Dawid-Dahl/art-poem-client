@@ -5,6 +5,7 @@ import {useHistory} from "react-router-dom";
 import PoemAuthorSection from "./PoemAuthorSection";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store";
+import BackButton from "../BackButton";
 
 type Props = {
 	title: string;
@@ -21,9 +22,8 @@ const TopBar: React.FC<Props> = ({title, buttonKind, backType}) => {
 			<Wrapper>
 				<LinkButtonWrapper>
 					{backType === "history" ? (
-						<LinkButton
+						<BackButton
 							title="Back"
-							linkTo="/main"
 							kind={buttonKind}
 							onClick={() => history.goBack()}
 							customization="topBarButton"

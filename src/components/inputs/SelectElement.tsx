@@ -37,6 +37,7 @@ const StyledSelectElement = styled.select`
 	appearance: none;
 	text-align-last: center;
 	transition: all 0.2s;
+	background-color: white;
 
 	&:hover {
 		box-shadow: 0 0 0 2pt var(--main-btn-color);

@@ -11,9 +11,11 @@ const CommentsDisplay = () => {
 	return (
 		<>
 			<Wrapper>
-				{poemSelected.comments.map((comment: ReduxComment) => (
-					<Comment key={comment.id} comment={comment} />
-				))}
+				{poemSelected.comments
+					.sort((a, b) => a.id - b.id)
+					.map((comment: ReduxComment) => (
+						<Comment key={comment.id} comment={comment} />
+					))}
 			</Wrapper>
 		</>
 	);

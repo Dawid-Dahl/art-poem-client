@@ -104,7 +104,7 @@ const StyledDiv = styled.div<StyledDivProps>`
 	@media only screen and (max-width: 800px) {
 		background-size: cover;
 		background-position: center;
-		height: 50vh;
+		height: 100vh;
 	}
 `;
 
