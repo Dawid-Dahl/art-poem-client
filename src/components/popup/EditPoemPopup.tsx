@@ -63,7 +63,8 @@ const EditPoemPopup: React.FC<Props> = () => {
 
 	const handleDeleteClick = () => {
 		const isConfirmingDeletion = confirm("Are you sure you want to delete this Artpoem?");
-		if (isConfirmingDeletion) dispatch(deletePoem(poemSelected.id));
+		if (isConfirmingDeletion)
+			dispatch(hideEditPoemPopup()), dispatch(deletePoem(poemSelected.id));
 	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -85,12 +86,13 @@ const EditPoemPopup: React.FC<Props> = () => {
 
 			if (!editPoemPayload) return;
 
+			dispatch(hideEditPoemPopup());
+
 			dispatch(editPoem(editPoemPayload));
 
 			setPoemTitle(poemSelected.title);
 			setImageFile(null);
 			setPoemContent(poemSelected.content);
-			dispatch(hideEditPoemPopup());
 		} catch (e) {
 			console.log(e);
 		}
