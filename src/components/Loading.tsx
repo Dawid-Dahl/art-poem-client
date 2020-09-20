@@ -17,12 +17,14 @@ const Wrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	width: 100%;
 `;
 
 const LoadingInProgressIndicator = styled.div`
 	&,
 	&:before,
 	&:after {
+		top: -25px;
 		border-radius: 50%;
 		width: 2.5em;
 		height: 2.5em;
@@ -32,10 +34,9 @@ const LoadingInProgressIndicator = styled.div`
 		animation: load7 1.8s infinite ease-in-out;
 	}
 	& {
-		top: -100px;
 		color: black;
 		font-size: 0.8em;
-		margin: 80px auto;
+		margin: 50px auto;
 		position: relative;
 		text-indent: -9999em;
 		-webkit-transform: translateZ(0);

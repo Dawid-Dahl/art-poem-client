@@ -14,8 +14,8 @@ const App: React.FC = () => {
 	const addCollectionPopup = useSelector(
 		(state: RootState) => state.popupReducer.addCollectionPopup
 	);
-
 	const editPoemPopup = useSelector((state: RootState) => state.popupReducer.editPoemPopup);
+	const loadingPopup = useSelector((state: RootState) => state.popupReducer.loadingPopup);
 
 	const dispatch = useDispatch();
 
@@ -33,7 +33,11 @@ const App: React.FC = () => {
 	return (
 		<>
 			<Overlay
-				isShowingPopup={addCollectionPopup.active || editPoemPopup.active ? true : false}
+				isShowingPopup={
+					addCollectionPopup.active || editPoemPopup.active || loadingPopup.active
+						? true
+						: false
+				}
 				handleClick={handleClick}
 			/>
 			<Popup />

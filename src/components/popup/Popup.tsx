@@ -4,20 +4,23 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../store";
 import AddCollectionPopup from "./AddCollectionPopup";
 import EditPoemPopup from "./EditPoemPopup";
+import LoadingPopup from "./LoadingPopup";
 
 const Popup: React.FC = () => {
 	const addCollectionPopup = useSelector(
 		(state: RootState) => state.popupReducer.addCollectionPopup
 	);
 	const editPoemPopup = useSelector((state: RootState) => state.popupReducer.editPoemPopup);
+	const loadingPopup = useSelector((state: RootState) => state.popupReducer.loadingPopup);
 
-	const popups = [addCollectionPopup, editPoemPopup];
+	const popups = [addCollectionPopup, editPoemPopup, loadingPopup];
 
 	return (
 		<>
 			<Wrapper active={popups.some(x => x.active)}>
 				<AddCollectionPopup />
 				<EditPoemPopup />
+				<LoadingPopup />
 			</Wrapper>
 		</>
 	);

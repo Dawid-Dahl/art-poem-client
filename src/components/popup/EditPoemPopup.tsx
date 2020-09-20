@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import styled, {css} from "styled-components";
 import Button from "../Button";
 import {useDispatch, useSelector} from "react-redux";
-import {hidePopup} from "../../actions/popupActions";
+import {hidePopup, hideEditPoemPopup} from "../../actions/popupActions";
 import {RootState} from "../../store";
 import {editPoem, deletePoem} from "../../actions/asyncPoemActions";
 import {ImageFile} from "../../types/types";
@@ -90,7 +90,7 @@ const EditPoemPopup: React.FC<Props> = () => {
 			setPoemTitle(poemSelected.title);
 			setImageFile(null);
 			setPoemContent(poemSelected.content);
-			dispatch(hidePopup());
+			dispatch(hideEditPoemPopup());
 		} catch (e) {
 			console.log(e);
 		}

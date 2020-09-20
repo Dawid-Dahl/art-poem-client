@@ -20,7 +20,7 @@ import {parseMainApiResponse, convertToBytes, forwardTo} from "../utils/utils";
 import {ReduxArtPoem, EditPoemFields} from "../types/types";
 import {showFlash} from "../actions/flashActions";
 import {startLoading, completeLoading} from "../actions/loadingActions";
-import {hidePopup} from "../actions/popupActions";
+import {hidePopup, showLoadingPopup} from "../actions/popupActions";
 import history from "../history";
 import {deselectCollection} from "../actions/collectionActions";
 import {
@@ -117,10 +117,12 @@ function* workergetPoemsByUserId({id, poemCount}: ReturnType<typeof getPoemsByUs
 	}
 }
 
-function* workerUploadPoems({payload}: ReturnType<typeof uploadPoem>) {
+function* workerUploadPoem({payload}: ReturnType<typeof uploadPoem>) {
 	const image = payload.get("imageFile") as File;
 
 	try {
+		yield put(showLoadingPopup("Uploading your artpoem..."));
+
 		const bytes = convertToBytes("5 mb");
 
 		if (!bytes) return;
@@ -137,18 +139,23 @@ function* workerUploadPoems({payload}: ReturnType<typeof uploadPoem>) {
 
 		const data = yield call([res, "json"]);
 
+		yield put(hidePopup());
+
 		yield put(showFlash(JSON.parse(data.payload).message));
 		yield call(forwardTo, history, `/fullscreen?id=${JSON.parse(data.payload).id}`);
 	} catch (e) {
 		console.log(e);
+		yield put(hidePopup());
 	}
 }
 
-function* workerEditPoems({payload}: ReturnType<typeof editPoem>) {
+function* workerEditPoem({payload}: ReturnType<typeof editPoem>) {
 	const image = payload.get("editImageFile") as File;
 	const poemFields = JSON.parse(payload.get("editPoemFields") as string) as EditPoemFields;
 
 	try {
+		yield put(showLoadingPopup("Saving, one moment..."));
+
 		if (image) {
 			const bytes = convertToBytes("5 mb");
 
@@ -167,16 +174,20 @@ function* workerEditPoems({payload}: ReturnType<typeof editPoem>) {
 
 		const data = yield call([res, "json"]);
 
+		yield put(hidePopup());
 		yield put(getPoem(poemFields.poemId));
 		yield put(showFlash(JSON.parse(data.payload).message));
 		yield put(editPoemFulfilled());
 	} catch (e) {
 		console.log(e);
+		yield put(hidePopup());
 	}
 }
 
 function* workerDeletePoem({artPoemId}: ReturnType<typeof deletePoem>) {
 	try {
+		yield put(showLoadingPopup("Deleting your artpoem, one moment..."));
+
 		const res = yield call(apiService.refreshAndFetch, "artpoem/delete-artpoem", {
 			method: "DELETE",
 			headers: {
@@ -188,6 +199,7 @@ function* workerDeletePoem({artPoemId}: ReturnType<typeof deletePoem>) {
 		const data = yield call([res, "json"]);
 
 		if (data.success) {
+			yield put(hidePopup());
 			yield put(showFlash(JSON.parse(data.payload).message));
 			yield put(hidePopup());
 			yield put(deletePoemFulfilled(artPoemId));
@@ -195,6 +207,7 @@ function* workerDeletePoem({artPoemId}: ReturnType<typeof deletePoem>) {
 		}
 	} catch (e) {
 		console.log(e);
+		yield put(hidePopup());
 	}
 }
 
@@ -202,8 +215,8 @@ function* asyncPoemsSaga() {
 	yield takeEvery("GET_POEM", workerGetPoem);
 	yield takeEvery("GET_POEMS", workerGetPoems);
 	yield takeEvery("GET_POEMS_BY_USER_ID", workergetPoemsByUserId);
-	yield takeEvery("UPLOAD_POEM", workerUploadPoems);
-	yield takeEvery("EDIT_POEM", workerEditPoems);
+	yield takeEvery("UPLOAD_POEM", workerUploadPoem);
+	yield takeEvery("EDIT_POEM", workerEditPoem);
 	yield takeEvery("DELETE_POEM", workerDeletePoem);
 }
 
