@@ -7,6 +7,7 @@ import {showFlash} from "../actions/flashActions";
 import {User} from "../types/types";
 import {setProfileName} from "../actions/profileActions";
 import {logout} from "../actions/loginActions";
+import {showLoadingPopup, hidePopup} from "../actions/popupActions";
 
 function* workerGetUser({userId}: ReturnType<typeof getUser>) {
 	try {
@@ -24,6 +25,8 @@ function* workerGetUser({userId}: ReturnType<typeof getUser>) {
 
 function* workerUpdateProfileImage({imageFile}: ReturnType<typeof updateProfileImage>) {
 	try {
+		yield put(showLoadingPopup("Uploading your profile picture, one moment..."));
+
 		const image = imageFile.get("profilePictureInput") as File;
 
 		const bytes = convertToBytes("5 mb");
@@ -44,10 +47,12 @@ function* workerUpdateProfileImage({imageFile}: ReturnType<typeof updateProfileI
 
 		const insertResult: User = JSON.parse(parseMainApiResponse(json).insertResult);
 
+		yield put(hidePopup());
 		yield put(showFlash(JSON.parse(json.payload).message));
 		yield put(updateProfileImageFulfilled(insertResult.profilePicture));
 	} catch (e) {
 		console.log(e);
+		yield put(hidePopup());
 	}
 }
 

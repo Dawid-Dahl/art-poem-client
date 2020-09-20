@@ -13,6 +13,7 @@ import {apiService} from "../api/apiService";
 import {parseMainApiResponse} from "../utils/utils";
 import {ReduxComment} from "../types/types";
 import {updateSelectedPoemComments} from "../actions/syncPoemAction";
+import {startLoading, completeLoading} from "../actions/loadingActions";
 
 function* workerGetComments({artPoemId, commentCount}: ReturnType<typeof getComments>) {
 	try {
