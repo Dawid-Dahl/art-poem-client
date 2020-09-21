@@ -60,4 +60,10 @@ const Wrapper = styled.div`
 		font-size: 1.5em;
 		white-space: break-spaces;
 	}
+
+	@media only screen and (max-width: 800px) {
+		p {
+			font-size: 1.2em;
+		}
+	}
 `;
