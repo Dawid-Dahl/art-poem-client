@@ -39,7 +39,7 @@ const FullscreenPicture: React.FC<Props> = () => {
 	}, []);
 
 	useEffect(() => {
-		if (cachedPoems.length === 0 && artPoemId === -1) {
+		if (cachedPoems.length === 0 && selectedArtPoem.id === -1) {
 			dispatch(selectPoem(poemNotFound));
 		} else if (cachedPoems.length === 0 && artPoemId === 0) {
 			dispatch(selectPoem(initPoem));
