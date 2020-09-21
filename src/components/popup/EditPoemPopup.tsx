@@ -30,7 +30,7 @@ const EditPoemPopup: React.FC<Props> = () => {
 
 	useEffect(() => {
 		isLoggedIn && dispatch(getAllCollections());
-	}, []);
+	}, [isLoggedIn]);
 
 	const [poemTitle, setPoemTitle] = useState(poemSelected.title);
 	const [imageFile, setImageFile] = useState<ImageFile>(null);
@@ -137,7 +137,7 @@ type StyledFormProps = {
 const StyledForm = styled.form<StyledFormProps>`
 	min-width: 30%;
 	position: absolute;
-	padding: 0 0 2em 0;
+	padding: 0 2em 2em 2em;
 	background-color: white;
 	border-radius: var(--border-radius);
 	box-shadow: 1px 0px 20px 6px #00000045;
@@ -162,14 +162,10 @@ const StyledForm = styled.form<StyledFormProps>`
 			  `}
 
 	@media only screen and (max-width: 500px) {
-		width: 100%;
+		padding: 0 0.5em 2em 0.5em;
 		border-radius: 0;
 		align-self: stretch;
 	}
-`;
-
-const SectionWrapper = styled.div`
-	margin: 0.7em;
 `;
 
 const ButtonRow = styled.div`
