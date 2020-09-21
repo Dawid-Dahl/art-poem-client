@@ -20,6 +20,7 @@ const EditPoemPopup: React.FC<Props> = () => {
 	const collectionSelected = useSelector(
 		(state: RootState) => state.collectionReducer.collectionSelected
 	);
+	const isLoggedIn = useSelector((state: RootState) => state.loginReducer.isLoggedIn);
 
 	useEffect(() => {
 		setPoemTitle(poemSelected.title);
@@ -28,7 +29,7 @@ const EditPoemPopup: React.FC<Props> = () => {
 	}, [poemSelected]);
 
 	useEffect(() => {
-		dispatch(getAllCollections());
+		isLoggedIn && dispatch(getAllCollections());
 	}, []);
 
 	const [poemTitle, setPoemTitle] = useState(poemSelected.title);
