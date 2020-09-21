@@ -135,7 +135,7 @@ type StyledFormProps = {
 
 const StyledForm = styled.form<StyledFormProps>`
 	min-width: 30%;
-	position: fixed;
+	position: absolute;
 	padding: 0 2em 2em 2em;
 	background-color: white;
 	border-radius: var(--border-radius);
