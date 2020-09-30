@@ -12,6 +12,7 @@ import {ReduxArtPoem} from "../../types/types";
 import {welcomePoem, poemNotFound, initPoem} from "../../utils/defaultPoems";
 import CommentSection from "../comments/CommentSection";
 import LikesAndArtviewerSection from "./LikesAndArtviewerSection";
+import {useDisableArtViewerClicker} from "../../custom-hooks/useDisableArtViewerClicker";
 
 type Props = {};
 
@@ -25,11 +26,14 @@ const FullscreenPicture: React.FC<Props> = () => {
 	const selectedArtPoem = useSelector((state: RootState) => state.syncPoemReducer.poemSelected);
 	const cachedPoems = useSelector((state: RootState) => state.asyncPoemReducer.cachedPoems);
 	const isLoading = useSelector((state: RootState) => state.loadingReducer.isLoading);
+	const artMode = useSelector((state: RootState) => state.fullscreenReducer.artMode);
 
 	const selectArtPoemFromCache = (
 		cachedPoems: ReduxArtPoem[],
 		id: ReduxArtPoem["id"]
 	): ReduxArtPoem | undefined => cachedPoems.filter(poem => poem.id === id)[0];
+
+	useDisableArtViewerClicker();
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -60,13 +64,16 @@ const FullscreenPicture: React.FC<Props> = () => {
 	return (
 		<>
 			<Wrapper>
-				<StyledDiv imageUrl={selectedArtPoem.imageUrl ? selectedArtPoem.imageUrl : ""}>
+				<StyledDiv
+					imageUrl={selectedArtPoem.imageUrl ? selectedArtPoem.imageUrl : ""}
+					artMode={artMode}
+				>
 					<TopBar
 						title={isLoading ? "" : selectedArtPoem.title}
 						buttonKind="white"
 						backType="history"
 					/>
-					<Grid selectedArtPoem={selectedArtPoem}>
+					<Grid selectedArtPoem={selectedArtPoem} artMode={artMode}>
 						<PoemSection
 							poemUserId={selectedArtPoem.userId}
 							poem={selectedArtPoem.content}
@@ -90,6 +97,7 @@ const Wrapper = styled.div``;
 
 type StyledDivProps = {
 	imageUrl: string;
+	artMode: boolean;
 };
 
 const StyledDiv = styled.div<StyledDivProps>`
@@ -111,6 +119,7 @@ const StyledDiv = styled.div<StyledDivProps>`
 
 type StyledGridProps = {
 	selectedArtPoem: ReduxArtPoem;
+	artMode: boolean;
 };
 
 const Grid = styled.div<StyledGridProps>`
@@ -121,6 +130,8 @@ const Grid = styled.div<StyledGridProps>`
 	grid-template-columns: 1fr 1fr;
 	gap: 1em 1em;
 	grid-template-areas: "PoemSection Sidebar" "PoemSection Sidebar";
+	transition: opacity 0.5s;
+	opacity: ${props => (props.artMode ? "0" : "1")};
 
 	@media only screen and (max-width: 1600px) {
 		width: 80%;

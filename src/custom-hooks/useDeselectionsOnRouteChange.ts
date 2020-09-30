@@ -11,6 +11,7 @@ import {
 } from "../actions/commentActions";
 import {disableHasUserLikedPoem} from "../actions/likeActions";
 import {unsetProfileName} from "../actions/profileActions";
+import {disableArtMode} from "../actions/fullscreenActions";
 
 export const useDeselectionsOnRouteChange = () => {
 	const dispatch = useDispatch();
@@ -52,6 +53,11 @@ export const useDeselectionsOnRouteChange = () => {
 
 	useEffect(() => {
 		const unlisten = history.listen(() => dispatch(unsetProfileName()));
+		return () => unlisten();
+	});
+
+	useEffect(() => {
+		const unlisten = history.listen(() => dispatch(disableArtMode()));
 		return () => unlisten();
 	});
 };

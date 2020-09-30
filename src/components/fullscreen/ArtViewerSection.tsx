@@ -1,13 +1,29 @@
-import React from "react";
+import React, {Dispatch} from "react";
 import styled from "styled-components";
+import {useDispatch, useSelector} from "react-redux";
+import {enableArtMode, disableArtMode} from "../../actions/fullscreenActions";
+import {RootState} from "../../store";
 
 type Props = {};
 
 const ArtViewerSection: React.FC<Props> = () => {
+	const dispatch = useDispatch();
+
+	const artMode = useSelector((state: RootState) => state.fullscreenReducer.artMode);
+
+	const handleClick = (
+		e: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
+		dispatch: Dispatch<any>,
+		artMode: boolean
+	) => (artMode ? dispatch(disableArtMode()) : dispatch(enableArtMode()));
+
 	return (
 		<>
-			<Wrapper>
-				<EyeIcon>👁️</EyeIcon>
+			<Wrapper
+				onClick={e => handleClick(e, dispatch, artMode)}
+				className="art-viewer-section"
+			>
+				<EyeIcon className="art-viewer-section">👁️</EyeIcon>
 			</Wrapper>
 		</>
 	);
@@ -26,6 +42,7 @@ const Wrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	cursor: pointer;
 
 	p {
 		margin: 0;
@@ -34,7 +51,6 @@ const Wrapper = styled.div`
 
 const EyeIcon = styled.p`
 	border-radius: 5px;
-	cursor: pointer;
 	text-align: center;
 	font-size: 2.5em;
 `;
