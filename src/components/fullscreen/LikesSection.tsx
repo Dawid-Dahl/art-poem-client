@@ -77,13 +77,16 @@ const LikesSection: React.FC<Props> = () => {
 export default LikesSection;
 
 const Wrapper = styled.div`
+	width: 100%;
+	height: 100%;
+	margin: 0 0.5em 0 0;
 	text-align: center;
-	margin: 0 0 1em 0;
 	background-color: white;
 	box-shadow: var(--box-shadow);
 	border-radius: 5px;
-	height: fit-content;
-	padding: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
 	p {
 		text-align: center;
@@ -91,7 +94,6 @@ const Wrapper = styled.div`
 	}
 
 	@media only screen and (max-width: 1280px) {
-		padding: 30px;
 	}
 
 	@media only screen and (max-width: 800px) {

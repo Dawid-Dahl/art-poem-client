@@ -11,6 +11,7 @@ import {selectPoem, renderPoems} from "../../actions/syncPoemAction";
 import {ReduxArtPoem} from "../../types/types";
 import {welcomePoem, poemNotFound, initPoem} from "../../utils/defaultPoems";
 import CommentSection from "../comments/CommentSection";
+import LikesAndArtviewerSection from "./LikesAndArtviewerSection";
 
 type Props = {};
 
@@ -72,7 +73,7 @@ const FullscreenPicture: React.FC<Props> = () => {
 						/>
 						{selectedArtPoem.id !== 1 && (
 							<SidebarWrapper>
-								<LikesSection />
+								<LikesAndArtviewerSection />
 								<CommentSection />
 							</SidebarWrapper>
 						)}
