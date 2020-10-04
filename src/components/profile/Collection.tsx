@@ -101,7 +101,6 @@ const SpanWrapper = styled.div`
 		top: 5%;
 		right: 5%;
 		transition: all 0.3s;
-		z-index: 10;
 
 		&:hover {
 			transform: scale(1.1);
