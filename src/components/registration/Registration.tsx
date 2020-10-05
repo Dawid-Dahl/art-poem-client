@@ -25,7 +25,10 @@ export const Wrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: 90vh;
+
+	h1 {
+		margin-top: 5em;
+	}
 
 	.loginLink {
 		color: black;
@@ -34,5 +37,15 @@ export const Wrapper = styled.div`
 
 	h2 {
 		letter-spacing: 1px;
+	}
+
+	a {
+		margin-bottom: 3em;
+	}
+
+	@media only screen and (max-width: 700px) {
+		h1 {
+			margin-top: 2em;
+		}
 	}
 `;

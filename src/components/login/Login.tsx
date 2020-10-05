@@ -30,7 +30,10 @@ export const Wrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: 90vh;
+
+	h1 {
+		margin-top: 5em;
+	}
 
 	.registrationLink {
 		color: black;
@@ -43,9 +46,16 @@ export const Wrapper = styled.div`
 		margin: 0.5em 1em 1em 1em;
 		font-weight: lighter;
 	}
+
+	@media only screen and (max-width: 700px) {
+		h1 {
+			margin-top: 2em;
+		}
+	}
 `;
 
 const ForgotYourPasswordLink = styled.p`
 	border-top: solid 1px black;
 	padding: 1.1em 0 0 0;
+	margin-bottom: 3em;
 `;
