@@ -7,11 +7,10 @@ import {ReduxComment} from "../../types/types";
 
 const CommentsDisplay = () => {
 	const poemSelected = useSelector((state: RootState) => state.syncPoemReducer.poemSelected);
-	const artMode = useSelector((state: RootState) => state.fullscreenReducer.artMode);
 
 	return (
 		<>
-			<Wrapper artMode={artMode}>
+			<Wrapper>
 				{poemSelected.comments
 					.sort((a, b) => a.id - b.id)
 					.map((comment: ReduxComment) => (
@@ -24,13 +23,7 @@ const CommentsDisplay = () => {
 
 export default CommentsDisplay;
 
-type StyledWrapperProps = {
-	artMode: boolean;
-};
-
-const Wrapper = styled.div<StyledWrapperProps>`
+const Wrapper = styled.div`
 	width: 100%;
 	margin: 0 0 1em 0;
-	transition: opacity 0.5s;
-	opacity: ${props => (props.artMode ? "0" : "1")};
 `;
