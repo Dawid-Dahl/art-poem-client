@@ -129,8 +129,7 @@ const Grid = styled.div<StyledGridProps>`
 	grid-template-columns: 1fr 1fr;
 	gap: 1em 1em;
 	grid-template-areas: "PoemSection Sidebar" "PoemSection Sidebar";
-	transition: opacity 0.5s;
-	opacity: ${props => (props.artMode ? "0" : "1")};
+	visibility: ${props => (props.artMode ? "hidden" : "visible")};
 
 	@media only screen and (max-width: 1600px) {
 		width: 80%;
