@@ -129,6 +129,7 @@ function* workerUploadPoem({payload}: ReturnType<typeof uploadPoem>) {
 
 		if (image.size >= bytes) {
 			yield put(showFlash("Please choose an image smaller than 5 MB in size"));
+			yield put(hidePopup());
 			return;
 		}
 
@@ -163,6 +164,7 @@ function* workerEditPoem({payload}: ReturnType<typeof editPoem>) {
 
 			if (image.size >= bytes) {
 				yield put(showFlash("Please choose an image smaller than 5 MB in size"));
+				yield put(hidePopup());
 				return;
 			}
 		}

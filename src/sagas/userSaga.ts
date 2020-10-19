@@ -35,6 +35,7 @@ function* workerUpdateProfileImage({imageFile}: ReturnType<typeof updateProfileI
 
 		if (image.size >= bytes) {
 			yield put(showFlash("Please choose an image smaller than 5 MB in size"));
+			yield put(hidePopup());
 			return;
 		}
 
