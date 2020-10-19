@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import styled from "styled-components";
 import PoemSection from "./PoemSection";
-import LikesSection from "./LikesSection";
 import {useQuery} from "../../custom-hooks/useQuery";
 import {useDispatch, useSelector} from "react-redux";
 import {getPoem} from "../../actions/asyncPoemActions";
