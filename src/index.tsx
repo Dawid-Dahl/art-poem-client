@@ -11,7 +11,7 @@ import {History} from "history";
 
 ReactDOM.render(
 	<Provider store={store}>
-		<Router history={history as History<History.PoorMansUnknown>}>
+		<Router history={history as History<History.UnknownFacade>}>
 			<Route path="/" component={App} />
 		</Router>
 	</Provider>,

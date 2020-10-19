@@ -6,6 +6,7 @@ import Upload from "../upload/Upload";
 import Profile from "../profile/Profile";
 import {useDeselectionsOnRouteChange} from "../../custom-hooks/useDeselectionsOnRouteChange";
 import AccountOptions from "../account-options/AccountOptions";
+import FullscreenImage from "../fullscreen/FullScreenImage";
 
 export const AuthenticatedApp = () => {
 	useDeselectionsOnRouteChange();
@@ -15,6 +16,7 @@ export const AuthenticatedApp = () => {
 			<Switch>
 				<Route path="/main" component={Main} />
 				<Route path="/fullscreen" component={Fullscreen} />
+				<Route path="/fullscreenImage" component={FullscreenImage} />
 				<Route path="/upload" component={Upload} />
 				<Route path="/profile" component={Profile} />
 				<Route path="/account-options" component={AccountOptions} />

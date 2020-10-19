@@ -11,7 +11,6 @@ import {ReduxArtPoem} from "../../types/types";
 import {welcomePoem, poemNotFound, initPoem} from "../../utils/defaultPoems";
 import CommentSection from "../comments/CommentSection";
 import LikesAndArtviewerSection from "./LikesAndArtviewerSection";
-import {useDisableArtViewerClicker} from "../../custom-hooks/useDisableArtViewerClicker";
 
 type Props = {};
 
@@ -25,14 +24,11 @@ const FullscreenPicture: React.FC<Props> = () => {
 	const selectedArtPoem = useSelector((state: RootState) => state.syncPoemReducer.poemSelected);
 	const cachedPoems = useSelector((state: RootState) => state.asyncPoemReducer.cachedPoems);
 	const isLoading = useSelector((state: RootState) => state.loadingReducer.isLoading);
-	const artMode = useSelector((state: RootState) => state.fullscreenReducer.artMode);
 
 	const selectArtPoemFromCache = (
 		cachedPoems: ReduxArtPoem[],
 		id: ReduxArtPoem["id"]
 	): ReduxArtPoem | undefined => cachedPoems.filter(poem => poem.id === id)[0];
-
-	useDisableArtViewerClicker();
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -63,23 +59,20 @@ const FullscreenPicture: React.FC<Props> = () => {
 	return (
 		<>
 			<Wrapper>
-				<StyledDiv
-					imageUrl={selectedArtPoem.imageUrl ? selectedArtPoem.imageUrl : ""}
-					artMode={artMode}
-				>
+				<StyledDiv imageUrl={selectedArtPoem.imageUrl ? selectedArtPoem.imageUrl : ""}>
 					<TopBar
 						title={isLoading ? "" : selectedArtPoem.title}
 						buttonKind="white"
 						backType="history"
 					/>
-					<Grid selectedArtPoem={selectedArtPoem} artMode={artMode}>
+					<Grid selectedArtPoem={selectedArtPoem}>
 						<PoemSection
 							poemUserId={selectedArtPoem.userId}
 							poem={selectedArtPoem.content}
 						/>
 						{selectedArtPoem.id !== 1 && (
 							<SidebarWrapper>
-								<LikesAndArtviewerSection />
+								<LikesAndArtviewerSection poemId={selectedArtPoem.id} />
 								<CommentSection />
 							</SidebarWrapper>
 						)}
@@ -96,7 +89,6 @@ const Wrapper = styled.div``;
 
 type StyledDivProps = {
 	imageUrl: string;
-	artMode: boolean;
 };
 
 const StyledDiv = styled.div<StyledDivProps>`
@@ -118,7 +110,6 @@ const StyledDiv = styled.div<StyledDivProps>`
 
 type StyledGridProps = {
 	selectedArtPoem: ReduxArtPoem;
-	artMode: boolean;
 };
 
 const Grid = styled.div<StyledGridProps>`
@@ -129,7 +120,6 @@ const Grid = styled.div<StyledGridProps>`
 	grid-template-columns: 1fr 1fr;
 	gap: 1em 1em;
 	grid-template-areas: "PoemSection Sidebar" "PoemSection Sidebar";
-	visibility: ${props => (props.artMode ? "hidden" : "visible")};
 
 	@media only screen and (max-width: 1600px) {
 		width: 80%;

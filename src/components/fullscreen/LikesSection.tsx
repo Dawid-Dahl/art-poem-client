@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store";
 import {ReduxLike, User, ReduxArtPoem} from "../../types/types";
 import {enableHasUserLikedPoem, likePoem, unlikePoem} from "../../actions/likeActions";
-import {disableArtMode} from "../../actions/fullscreenActions";
 
 type Props = {};
 
@@ -21,7 +20,6 @@ const LikesSection: React.FC<Props> = () => {
 	const user = useSelector((state: RootState) => state.userReducer.user);
 	const hasUserLikedPoem = useSelector((state: RootState) => state.likeReducer.hasUserLikedPoem);
 	const poemSelected = useSelector((state: RootState) => state.syncPoemReducer.poemSelected);
-	const artMode = useSelector((state: RootState) => state.fullscreenReducer.artMode);
 
 	useEffect(() => {
 		if (!user) return;
@@ -35,14 +33,8 @@ const LikesSection: React.FC<Props> = () => {
 		dispatch: Dispatch<any>
 	) => (user: User | null, poemSelected: ReduxArtPoem) => (
 		hasUserLikedPoem: boolean,
-		getUserLike: (user: User | null, likes: ReduxLike[]) => ReduxLike | undefined,
-		artMode: boolean
+		getUserLike: (user: User | null, likes: ReduxLike[]) => ReduxLike | undefined
 	) => {
-		if (artMode) {
-			dispatch(disableArtMode());
-			return;
-		}
-
 		if (hasUserLikedPoem) {
 			const userLike = getUserLike(user, poemSelected.likes);
 			if (!userLike) return;
@@ -55,21 +47,12 @@ const LikesSection: React.FC<Props> = () => {
 
 	return (
 		<>
-			<Wrapper
-				className="likes-section"
-				onClick={e => {
-					if (artMode) {
-						dispatch(disableArtMode());
-						return;
-					}
-				}}
-			>
+			<Wrapper className="likes-section">
 				<LikeIcon
 					onClick={e =>
 						handleLikeClick(e, dispatch)(user, poemSelected)(
 							hasUserLikedPoem,
-							getUserLike,
-							artMode
+							getUserLike
 						)
 					}
 					hasUserLikedPoem={hasUserLikedPoem}
@@ -81,8 +64,7 @@ const LikesSection: React.FC<Props> = () => {
 					onClick={e =>
 						handleLikeClick(e, dispatch)(user, poemSelected)(
 							hasUserLikedPoem,
-							getUserLike,
-							artMode
+							getUserLike
 						)
 					}
 					className="likes-section"

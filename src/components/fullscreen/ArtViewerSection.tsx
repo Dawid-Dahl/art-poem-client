@@ -1,28 +1,19 @@
-import React, {Dispatch} from "react";
+import React from "react";
 import styled from "styled-components";
-import {useDispatch, useSelector} from "react-redux";
-import {enableArtMode, disableArtMode} from "../../actions/fullscreenActions";
-import {RootState} from "../../store";
+import {useHistory} from "react-router-dom";
 
-type Props = {};
+type Props = {
+	poemId: number;
+};
 
-const ArtViewerSection: React.FC<Props> = () => {
-	const dispatch = useDispatch();
+const ArtViewerSection: React.FC<Props> = ({poemId}) => {
+	const history = useHistory();
 
-	const artMode = useSelector((state: RootState) => state.fullscreenReducer.artMode);
-
-	const handleClick = (
-		e: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
-		dispatch: Dispatch<any>,
-		artMode: boolean
-	) => (artMode ? dispatch(disableArtMode()) : dispatch(enableArtMode()));
+	const handleClick = () => history.push(`/fullscreenImage?id=${poemId}`);
 
 	return (
 		<>
-			<Wrapper
-				onClick={e => handleClick(e, dispatch, artMode)}
-				className="art-viewer-section"
-			>
+			<Wrapper onClick={handleClick} className="art-viewer-section">
 				<EyeIcon className="art-viewer-section">👁️</EyeIcon>
 			</Wrapper>
 		</>

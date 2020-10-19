@@ -11,7 +11,6 @@ import {
 	commentReducer,
 	likeReducer,
 	profileReducer,
-	fullscreenReducer,
 } from "../reducers/reducers";
 import {composeWithDevTools} from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
@@ -31,7 +30,6 @@ export const rootReducer = combineReducers({
 	commentReducer,
 	likeReducer,
 	profileReducer,
-	fullscreenReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

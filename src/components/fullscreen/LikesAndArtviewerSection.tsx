@@ -3,14 +3,16 @@ import styled from "styled-components";
 import LikesSection from "./LikesSection";
 import ArtViewerSection from "./ArtViewerSection";
 
-type Props = {};
+type Props = {
+	poemId: number;
+};
 
-const LikesAndArtviewerSection: React.FC<Props> = () => {
+const LikesAndArtviewerSection: React.FC<Props> = ({poemId}) => {
 	return (
 		<>
 			<Wrapper>
 				<LikesSection />
-				<ArtViewerSection />
+				<ArtViewerSection poemId={poemId} />
 			</Wrapper>
 		</>
 	);

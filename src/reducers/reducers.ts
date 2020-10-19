@@ -9,4 +9,3 @@ export * from "./loadingReducer";
 export * from "./commentReducer";
 export * from "./likeReducer";
 export * from "./profileReducer";
-export * from "./fullscreenReducer";
