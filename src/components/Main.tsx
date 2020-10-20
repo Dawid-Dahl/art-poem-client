@@ -42,11 +42,11 @@ const Main = () => {
 					renderedPoems={pipe(
 						filterPoemsByPublicCollection,
 						scrambleArray,
-						take(15)
+						take(12)
 					)(renderedPoems)}
 				/>
 				<ButtonWrapper>
-					{cachedPoems.length >= 15 && (
+					{cachedPoems.length >= 12 && (
 						<Button
 							title="Refresh ArtPoems"
 							kind="grey"
