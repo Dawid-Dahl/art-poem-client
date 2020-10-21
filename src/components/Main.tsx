@@ -48,7 +48,7 @@ const Main = () => {
 				<ButtonWrapper>
 					{cachedPoems.length >= 12 && (
 						<Button
-							title="Refresh ArtPoems"
+							title="Discover More"
 							kind="grey"
 							type="button"
 							onClickHandler={() => dispatch(getPoems(20))}
