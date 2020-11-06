@@ -37,7 +37,7 @@ export const getPoemsFailed = (error: Error) =>
 		error,
 	} as const);
 
-export const getPoemsByUserId = (id: User["id"], poemCount = 10) =>
+export const getPoemsByUserId = (id: User["id"], poemCount = 50) =>
 	({
 		type: "GET_POEMS_BY_USER_ID",
 		id,

@@ -10,6 +10,7 @@ import {getPoemsByUserAndCollection} from "../actions/syncPoemAction";
 import {filterPoemsByPublicCollection, pipe, scrambleArray, take} from "../utils/utils";
 import Button from "./Button";
 import {SortingMethod} from "../types/enums";
+import SelectElement from "./inputs/SelectElement";
 
 const Main = () => {
 	const cachedPoems = useSelector((state: RootState) => state.asyncPoemReducer.cachedPoems);
@@ -41,6 +42,15 @@ const Main = () => {
 			<Navbar />
 			<InnerWrapper>
 				{collectionSelected ? <h1></h1> : <h1>Discover</h1>}
+				<SelectWrapper>
+					<SelectElement
+						onChangeHandle={(e: React.ChangeEvent<HTMLSelectElement>) =>
+							setsortingMethod(e.target.value)
+						}
+						selectedCollection={collection}
+						collections={collections}
+					/>
+				</SelectWrapper>
 				<ArtPoemGrid
 					renderedPoems={pipe(
 						filterPoemsByPublicCollection,
@@ -85,6 +95,16 @@ const InnerWrapper = styled.div`
 	h1 {
 		margin: 1em 0 1.5em 0;
 	}
+`;
+
+const SelectWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0.7em 0;
+	width: 30%;
+	max-width: 25em;
+	min-width: 15em;
 `;
 
 const ButtonWrapper = styled.div`
