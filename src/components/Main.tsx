@@ -15,18 +15,18 @@ import {
 import Button from "./Button";
 import {SortingMethod} from "../types/enums";
 import SelectElement from "./inputs/SelectElement";
+import {changeSortingMethod} from "../actions/sortingActions";
 
 const Main = () => {
 	const cachedPoems = useSelector((state: RootState) => state.asyncPoemReducer.cachedPoems);
 	const user = useSelector((state: RootState) => state.userReducer.user);
+	const sortingMethod = useSelector((state: RootState) => state.sortingReducer.sortingMethod);
 	const collectionSelected = useSelector(
 		(state: RootState) => state.collectionReducer.collectionSelected
 	);
 
 	const renderedPoems = useSelector((state: RootState) => state.syncPoemReducer.renderedPoems);
 	const dispatch = useDispatch();
-
-	const [sortingMethod, setSortingMethod] = useState(`${SortingMethod.LatestFirst}`);
 
 	useEffect(() => {
 		collectionSelected &&
@@ -50,7 +50,7 @@ const Main = () => {
 				<SelectWrapper>
 					<SelectElement
 						onChangeHandle={(e: React.ChangeEvent<HTMLSelectElement>) =>
-							setSortingMethod(e.target.value)
+							dispatch(changeSortingMethod(e.target.value))
 						}
 						selected={sortingMethod}
 						list={Object.values(SortingMethod)}
