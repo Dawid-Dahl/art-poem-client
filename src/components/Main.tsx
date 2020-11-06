@@ -8,11 +8,9 @@ import {RootState} from "../store";
 import {getPoems} from "../actions/asyncPoemActions";
 import {getPoemsByUserAndCollection} from "../actions/syncPoemAction";
 import {
-	filterPoemsByPublicCollection,
-	insertSpaceBeforeCapitalLettersExceptFirst,
-	pipe,
-	scrambleArray,
-	take,
+	randomizeArtPoemsAndFilterOutPrivate,
+	sortArtPoemsByLastAndFilterOutPrivate,
+	sortArtPoemsByLatestAndFilterOutPrivate,
 } from "../utils/utils";
 import Button from "./Button";
 import {SortingMethod} from "../types/enums";
@@ -24,6 +22,7 @@ const Main = () => {
 	const collectionSelected = useSelector(
 		(state: RootState) => state.collectionReducer.collectionSelected
 	);
+
 	const renderedPoems = useSelector((state: RootState) => state.syncPoemReducer.renderedPoems);
 	const dispatch = useDispatch();
 
@@ -54,28 +53,30 @@ const Main = () => {
 							setSortingMethod(e.target.value)
 						}
 						selected={sortingMethod}
-						list={Object.keys(SortingMethod).map(
-							insertSpaceBeforeCapitalLettersExceptFirst
-						)}
+						list={Object.values(SortingMethod)}
 					/>
 				</SelectWrapper>
 				<ArtPoemGrid
-					renderedPoems={pipe(
-						filterPoemsByPublicCollection,
-						scrambleArray,
-						take(12)
-					)(renderedPoems)}
+					renderedPoems={
+						sortingMethod === SortingMethod.LatestFirst
+							? sortArtPoemsByLatestAndFilterOutPrivate(renderedPoems)
+							: sortingMethod === SortingMethod.LastFirst
+							? sortArtPoemsByLastAndFilterOutPrivate(renderedPoems)
+							: randomizeArtPoemsAndFilterOutPrivate(renderedPoems)
+					}
 				/>
-				<ButtonWrapper>
-					{cachedPoems.length >= 12 && (
-						<Button
-							title="Discover More"
-							kind="grey"
-							type="button"
-							onClickHandler={() => dispatch(getPoems(50))}
-						/>
-					)}
-				</ButtonWrapper>
+				{sortingMethod === SortingMethod.Random && (
+					<ButtonWrapper>
+						{cachedPoems.length >= 12 && (
+							<Button
+								title="Discover More"
+								kind="grey"
+								type="button"
+								onClickHandler={() => dispatch(getPoems(50))}
+							/>
+						)}
+					</ButtonWrapper>
+				)}
 			</InnerWrapper>
 		</Wrapper>
 	);

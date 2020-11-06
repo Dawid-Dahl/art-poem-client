@@ -297,14 +297,17 @@ export const filterPoemsByPublicCollection = (poems: ReduxArtPoem[]) =>
 
 export const take = (n: number) => (arr: Array<any>) => arr.slice(0, n);
 
-export const insertSpaceBeforeCapitalLettersExceptFirst = (str: string) => {
-	const newArr = [];
-	for (let i = 0; i < str.length; i++) {
-		if (str[i].match(/[A-Z]/) && i !== 0) {
-			newArr.push(" ", str[i]);
-		} else {
-			newArr.push(str[i]);
-		}
-	}
-	return newArr.join("");
-};
+export const randomizeArtPoemsAndFilterOutPrivate = (poems: ReduxArtPoem[]) =>
+	pipe(filterPoemsByPublicCollection, scrambleArray, take(12))(poems);
+
+const sortArtPoemsByLatest = (poems: ReduxArtPoem[]) =>
+	poems.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+const sortArtPoemsByLast = (poems: ReduxArtPoem[]) =>
+	poems.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+
+export const sortArtPoemsByLatestAndFilterOutPrivate = (poems: ReduxArtPoem[]) =>
+	pipe(sortArtPoemsByLatest, filterPoemsByPublicCollection)(poems);
+
+export const sortArtPoemsByLastAndFilterOutPrivate = (poems: ReduxArtPoem[]) =>
+	pipe(sortArtPoemsByLast, filterPoemsByPublicCollection)(poems);
