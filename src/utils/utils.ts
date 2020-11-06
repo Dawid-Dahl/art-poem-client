@@ -296,3 +296,15 @@ export const filterPoemsByPublicCollection = (poems: ReduxArtPoem[]) =>
 	);
 
 export const take = (n: number) => (arr: Array<any>) => arr.slice(0, n);
+
+export const insertSpaceBeforeCapitalLettersExceptFirst = (str: string) => {
+	const newArr = [];
+	for (let i = 0; i < str.length; i++) {
+		if (str[i].match(/[A-Z]/) && i !== 0) {
+			newArr.push(" ", str[i]);
+		} else {
+			newArr.push(str[i]);
+		}
+	}
+	return newArr.join("");
+};

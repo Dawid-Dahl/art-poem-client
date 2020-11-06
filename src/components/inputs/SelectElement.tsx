@@ -1,25 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import OptionElement from "./OptionElement";
-import {ReduxCollection} from "../../types/types";
 
 type Props = {
 	onChangeHandle: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-	selectedCollection: string;
-	isSocialFeedSelectable?: boolean;
-	collections: ReduxCollection[];
+	selected: string;
+	list: string[];
 };
 
-const SelectElement: React.FC<Props> = ({
-	onChangeHandle,
-	selectedCollection,
-	isSocialFeedSelectable = false,
-	collections,
-}) => (
-	<StyledSelectElement onChange={onChangeHandle} value={selectedCollection}>
-		{isSocialFeedSelectable && <OptionElement key={0} value="Social Feed" />}
-		{collections.map(collection => (
-			<OptionElement key={collection.id} value={collection.name} />
+const SelectElement: React.FC<Props> = ({onChangeHandle, selected, list}) => (
+	<StyledSelectElement onChange={onChangeHandle} value={selected}>
+		{list.map((string, i) => (
+			<OptionElement key={i} value={string} />
 		))}
 	</StyledSelectElement>
 );

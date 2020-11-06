@@ -6,12 +6,12 @@ import TextAreaInput from "../inputs/TextAreaInput";
 import {ImageFile} from "../../types/types";
 import Navbar from "../Navbar";
 import FileInput from "../inputs/FileInput";
-import SelectElement from "../inputs/SelectElement";
 import {useSelector, useDispatch} from "react-redux";
 import {RootState} from "../../store";
 import {getAllCollections} from "../../actions/collectionActions";
 import {showFlash} from "../../actions/flashActions";
 import {uploadPoem} from "../../actions/asyncPoemActions";
+import SelectCollectionElement from "../inputs/SelectCollectionElement";
 
 const Upload: React.FC = () => {
 	const [title, setTitle] = useState("");
@@ -102,15 +102,15 @@ const Upload: React.FC = () => {
 							required
 						/>
 					</TextInputWrapper>
-					<SelectWrapper>
-						<SelectElement
+					<SelectCollectionWrapper>
+						<SelectCollectionElement
 							onChangeHandle={(e: React.ChangeEvent<HTMLSelectElement>) =>
 								setCollection(e.target.value)
 							}
 							selectedCollection={collection}
 							collections={collections}
 						/>
-					</SelectWrapper>
+					</SelectCollectionWrapper>
 					<FileInputWrapper>
 						<FileInput
 							name="uploadImageFile"
@@ -161,7 +161,7 @@ const TextInputWrapper = styled.div`
 	margin: 0.7em 0;
 `;
 
-const SelectWrapper = styled.div`
+const SelectCollectionWrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;

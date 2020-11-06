@@ -7,7 +7,13 @@ import {useSelector, useDispatch} from "react-redux";
 import {RootState} from "../store";
 import {getPoems} from "../actions/asyncPoemActions";
 import {getPoemsByUserAndCollection} from "../actions/syncPoemAction";
-import {filterPoemsByPublicCollection, pipe, scrambleArray, take} from "../utils/utils";
+import {
+	filterPoemsByPublicCollection,
+	insertSpaceBeforeCapitalLettersExceptFirst,
+	pipe,
+	scrambleArray,
+	take,
+} from "../utils/utils";
 import Button from "./Button";
 import {SortingMethod} from "../types/enums";
 import SelectElement from "./inputs/SelectElement";
@@ -21,7 +27,7 @@ const Main = () => {
 	const renderedPoems = useSelector((state: RootState) => state.syncPoemReducer.renderedPoems);
 	const dispatch = useDispatch();
 
-	const [sortingMethod, setsortingMethod] = useState(SortingMethod.LastFirst);
+	const [sortingMethod, setSortingMethod] = useState(`${SortingMethod.LatestFirst}`);
 
 	useEffect(() => {
 		collectionSelected &&
@@ -45,10 +51,12 @@ const Main = () => {
 				<SelectWrapper>
 					<SelectElement
 						onChangeHandle={(e: React.ChangeEvent<HTMLSelectElement>) =>
-							setsortingMethod(e.target.value)
+							setSortingMethod(e.target.value)
 						}
-						selectedCollection={collection}
-						collections={collections}
+						selected={sortingMethod}
+						list={Object.keys(SortingMethod).map(
+							insertSpaceBeforeCapitalLettersExceptFirst
+						)}
 					/>
 				</SelectWrapper>
 				<ArtPoemGrid
@@ -64,7 +72,7 @@ const Main = () => {
 							title="Discover More"
 							kind="grey"
 							type="button"
-							onClickHandler={() => dispatch(getPoems(20))}
+							onClickHandler={() => dispatch(getPoems(50))}
 						/>
 					)}
 				</ButtonWrapper>
@@ -93,7 +101,7 @@ const InnerWrapper = styled.div`
 	flex-direction: column;
 
 	h1 {
-		margin: 1em 0 1.5em 0;
+		margin: 1em 0 1em 0;
 	}
 `;
 
@@ -101,7 +109,7 @@ const SelectWrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin: 0.7em 0;
+	margin: -1em 0 2em 0;
 	width: 30%;
 	max-width: 25em;
 	min-width: 15em;

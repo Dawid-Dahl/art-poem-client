@@ -1,9 +1,9 @@
 import React from "react";
 import Row from "../styled-components/Row";
-import SelectElement from "../inputs/SelectElement";
 import {selectCollection} from "../../actions/collectionActions";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store";
+import SelectCollectionElement from "../inputs/SelectCollectionElement";
 
 type Props = {};
 
@@ -25,7 +25,7 @@ const EditPoemPopupCollection: React.FC<Props> = ({}) => {
 			<Row>
 				<p style={{margin: 0}}>Edit Collection</p>
 				<div>
-					<SelectElement
+					<SelectCollectionElement
 						onChangeHandle={(e: React.ChangeEvent<HTMLSelectElement>) =>
 							dispatch(handleSelectCollection(e))
 						}
