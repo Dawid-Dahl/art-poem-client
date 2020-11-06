@@ -86,4 +86,8 @@ const TopBarTitle = styled.h1<TopBarTitleProps>`
 	border-radius: 5px;
 	background-color: #00000029;
 	text-align: center;
+
+	@media only screen and (max-width: 330px) {
+		width: min-content;
+	}
 `;
