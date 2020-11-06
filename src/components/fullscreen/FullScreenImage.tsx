@@ -17,6 +17,9 @@ const FullscreenImage: React.FC<Props> = () => {
 
 	const artPoemId = Number(query.get("id"));
 
+	const imageUrl =
+		cachedPoems.length === 0 ? "" : cachedPoems.find(poem => poem.id === artPoemId).imageUrl;
+
 	useEffect(() => {
 		if (cachedPoems.length === 0) {
 			dispatch(getPoem(artPoemId));
@@ -34,31 +37,30 @@ const FullscreenImage: React.FC<Props> = () => {
 				buttonKind="white"
 				backType="history"
 			/>
-			<StyledDiv
-				imageUrl={
-					cachedPoems.length === 0
-						? ""
-						: cachedPoems.find(poem => poem.id === artPoemId).imageUrl
-				}
-			/>
+			<ImageWrapper>{imageUrl && <img src={imageUrl} alt="fullscreen-image" />}</ImageWrapper>
 		</>
 	);
 };
 
 export default FullscreenImage;
 
-type StyledDivProps = {
-	imageUrl: string;
-};
-
-const StyledDiv = styled.div<StyledDivProps>`
-	position: absolute;
-	top: 0px;
+const ImageWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--background-grey-color);
 	height: 100%;
 	width: 100%;
-	background-image: ${props => `url(${props.imageUrl})`};
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-color: var(--dark-grey-color);
-	z-index: -1;
+	position: absolute;
+	top: 0px;
+	z-index: -2;
+
+	img {
+		position: absolute;
+		top: 0px;
+		max-width: 100%;
+		max-height: 100%;
+		z-index: -1;
+		object-fit: contain;
+	}
 `;
