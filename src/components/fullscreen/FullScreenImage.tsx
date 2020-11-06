@@ -57,10 +57,14 @@ const ImageWrapper = styled.div`
 
 	img {
 		position: absolute;
-		top: 0px;
+		top: auto;
 		max-width: 100%;
 		max-height: 100%;
 		z-index: -1;
 		object-fit: contain;
+
+		@media only screen and (max-width: 800px) {
+			top: 0px;
+		}
 	}
 `;
