@@ -4,3 +4,9 @@ export enum ActionType {
 	Fulfilled = "_FULFILLED",
 	Failed = "_FAILED",
 }
+
+export enum SortingMethod {
+	LatestFirst = "latestFirst",
+	LastFirst = "lastFirst",
+	Random = "random",
+}

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import Navbar from "./Navbar";
 import ArtPoemGrid from "./art-poem-grid/ArtPoemGrid";
@@ -9,6 +9,7 @@ import {getPoems} from "../actions/asyncPoemActions";
 import {getPoemsByUserAndCollection} from "../actions/syncPoemAction";
 import {filterPoemsByPublicCollection, pipe, scrambleArray, take} from "../utils/utils";
 import Button from "./Button";
+import {SortingMethod} from "../types/enums";
 
 const Main = () => {
 	const cachedPoems = useSelector((state: RootState) => state.asyncPoemReducer.cachedPoems);
@@ -18,6 +19,8 @@ const Main = () => {
 	);
 	const renderedPoems = useSelector((state: RootState) => state.syncPoemReducer.renderedPoems);
 	const dispatch = useDispatch();
+
+	const [sortingMethod, setsortingMethod] = useState(SortingMethod.LastFirst);
 
 	useEffect(() => {
 		collectionSelected &&
@@ -30,7 +33,7 @@ const Main = () => {
 	}, []);
 
 	useEffect(() => {
-		dispatch(dispatch(getPoems(20)));
+		dispatch(dispatch(getPoems(50)));
 	}, []);
 
 	return (
