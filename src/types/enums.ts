@@ -6,7 +6,7 @@ export enum ActionType {
 }
 
 export enum SortingMethod {
-	LatestFirst = "Latest First",
-	LastFirst = "Last First",
-	Random = "Random",
+	LatestFirst = "Sort By Latest",
+	LastFirst = "Sort By First",
+	Random = "Randomize",
 }
