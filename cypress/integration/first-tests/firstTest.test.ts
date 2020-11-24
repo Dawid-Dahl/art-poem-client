@@ -1,5 +1,3 @@
-import {includes} from "cypress/types/lodash";
-
 describe("First Test", () => {
 	describe("happy path", () => {
 		it("should log into the app", () => {
